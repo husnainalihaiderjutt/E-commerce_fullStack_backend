@@ -2,7 +2,7 @@ import User from "../models/User.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
-const register = async(req,res)=>{
+export const register = async(req,res)=>{
     const {userName,email,password}= req.body;
     try {
         if(!userName || !email ||!password)
@@ -18,19 +18,19 @@ const register = async(req,res)=>{
         await newUser.save();
         return res.status(200).json({success:true , message:"Register Successfully"});
     } catch (error) {
-        console.log(e);
+        console.log(error);
         res.status(500).json({
             success:false,
             message:"Something went Wrong"
         });
     }
 }
-const login = async(req,res)=>{
+export const login = async(req,res)=>{
     const {email,password}= req.body;
     try {
         if(!email ||!password)
         {
-            return res.json({})
+            return res.json({}) 
         }
     } catch (error) {
         console.log(e);
@@ -40,4 +40,6 @@ const login = async(req,res)=>{
         })
     }
 }
+
+
 

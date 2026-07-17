@@ -1,8 +1,9 @@
 import express from "express"
 import dotenv from "dotenv"
-import mongoDbConnection from "./config/mongodbconnection.js";
+import mongoDbConnection from "./src/config/mongodbconnection.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import authRouter from "./src/routes/auth_routes.js";
 
 
 const app = express();
@@ -12,7 +13,7 @@ mongoDbConnection();
 
 app.use(
     cors({
-        origin:"http://localhost:5173/",
+        origin:"http://localhost:5173",
         methods: ['GET','POST','DELETE','PUT'],
         allowedHeaders:[
             "Content-Type",
@@ -26,6 +27,10 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.get('/health',(req,res)=>{
+    res.json({status:"ok"})
+})
+app.use('/api/auth',authRouter);
 app.listen(PORT,()=>console.log(`Server is running on http://localhost:${PORT}`));
 
 
