@@ -1,4 +1,4 @@
-import { register,login,authMiddleware,logout } from "../controllers/authController.js";
+import { register,login,authMiddleware,logout } from "../../controllers/auth/authController.js";
 import express from "express";
 
 

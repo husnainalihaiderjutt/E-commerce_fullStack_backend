@@ -1,13 +1,12 @@
 import express from "express"
-import dotenv from "dotenv"
 import mongoDbConnection from "./src/config/mongodbconnection.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
-import authRouter from "./src/routes/auth_routes.js";
-
-
-const app = express();
+import authRouter from "./src/routes/auth/auth_routes.js";
+import AdminProductRouter from "./src/routes/admin/product_routes.js";
+import dotenv from "dotenv"
 dotenv.config();
+const app = express();
 const PORT  = process.env.PORT || 5000;
 mongoDbConnection();
 
@@ -31,6 +30,7 @@ app.get('/health',(req,res)=>{
     res.json({status:"ok"})
 })
 app.use('/api/auth',authRouter);
+app.use('/api/admin/products',AdminProductRouter);
 app.listen(PORT,()=>console.log(`Server is running on http://localhost:${PORT}`));
 
 
